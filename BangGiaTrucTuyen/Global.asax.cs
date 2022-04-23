@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BangGiaTrucTuyen.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -20,8 +21,22 @@ namespace BangGiaTrucTuyen
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            SqlDependency.Start(connString);
-            Console.WriteLine("start123");
+
+            Database.KetNoi();
+
+            try
+            {
+                SqlDependency.Start(connString);
+            }
+            catch (Exception)
+            {
+                //the broker hasn't turned on yet
+                Database.ExecSqlNonQuery("ALTER DATABASE THITRUONGCHUNGKHOAN SET ENABLE_BROKER with rollback immediate");
+                SqlDependency.Start(connString);
+            }
+
+            //update bang gia truc tuyen
+            Database.ExecSqlNonQuery("EXEC [dbo].[SP_CAP_NHAP_TAT_CA_GIA_KL_MUA_BAN_BGTT]");
         }
     }
 }
