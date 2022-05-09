@@ -1,7 +1,7 @@
 USE [THITRUONGCHUNGKHOAN]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CAP_NHAP_TAT_CA_GIA_KL_MUA_BAN_BGTT]    Script Date: 23/04/2022 9:10:29 CH ******/
+/****** Object:  StoredProcedure [dbo].[SP_CAP_NHAP_TAT_CA_GIA_KL_MUA_BAN_BGTT]    Script Date: 09/05/2022 3:30:25 CH ******/
 SET ANSI_NULLS ON
 GO
 

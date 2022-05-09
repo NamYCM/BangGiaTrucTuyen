@@ -1,7 +1,7 @@
 USE [THITRUONGCHUNGKHOAN]
 GO
 
-/****** Object:  Trigger [dbo].[TRIGGER_LENHDAT]    Script Date: 21/04/2022 11:28:52 CH ******/
+/****** Object:  Trigger [dbo].[TRIGGER_LENHDAT]    Script Date: 09/05/2022 3:30:38 CH ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,18 +13,20 @@ on [dbo].[LENHDAT]
 after insert, update
 as
 BEGIN
-	DECLARE @CursorVariable CURSOR, @MACP NCHAR(7)
-	SET @CursorVariable = CURSOR FOR SELECT DISTINCT MACP FROM inserted
-	OPEN @CursorVariable
+	DECLARE @MACP NCHAR(7)
+	SELECT @MACP = MACP FROM inserted
+	EXEC SP_CAP_NHAP_GIA_KL_MUA_BAN_BGTT @MACP
+	--SET @CursorVariable = CURSOR FOR SELECT DISTINCT MACP FROM inserted
+	--OPEN @CursorVariable
 
-	FETCH NEXT FROM @CursorVariable INTO @MACP
-	WHILE(@@FETCH_STATUS <>-1)
-	BEGIN
-		EXEC SP_CAP_NHAP_GIA_KL_MUA_BAN_BGTT @MACP
-		FETCH NEXT FROM @CursorVariable INTO @MACP
-	END
-	CLOSE @CursorVariable 
-	DEALLOCATE @CursorVariable
+	--FETCH NEXT FROM @CursorVariable INTO @MACP
+	--WHILE(@@FETCH_STATUS <>-1)
+	--BEGIN
+	--	EXEC SP_CAP_NHAP_GIA_KL_MUA_BAN_BGTT @MACP
+	--	FETCH NEXT FROM @CursorVariable INTO @MACP
+	--END
+	--CLOSE @CursorVariable 
+	--DEALLOCATE @CursorVariable
 END
 GO
 
