@@ -24,6 +24,9 @@ namespace BangGiaTrucTuyen
 
             Database.KetNoi();
 
+            //update bang gia truc tuyen
+            Database.ExecSqlNonQuery("EXEC [dbo].[SP_CAP_NHAP_TAT_CA_GIA_KL_MUA_BAN_BGTT]");
+
             try
             {
                 SqlDependency.Start(connString);
@@ -34,9 +37,6 @@ namespace BangGiaTrucTuyen
                 Database.ExecSqlNonQuery("ALTER DATABASE THITRUONGCHUNGKHOAN SET ENABLE_BROKER with rollback immediate");
                 SqlDependency.Start(connString);
             }
-
-            //update bang gia truc tuyen
-            Database.ExecSqlNonQuery("EXEC [dbo].[SP_CAP_NHAP_TAT_CA_GIA_KL_MUA_BAN_BGTT]");
         }
     }
 }
